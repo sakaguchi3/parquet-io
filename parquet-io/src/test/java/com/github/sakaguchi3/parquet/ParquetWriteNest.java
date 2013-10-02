@@ -22,6 +22,8 @@ import java.util.stream.IntStream;
 
 import org.apache.avro.Schema;
 
+import com.github.sakaguchi3.parquet.api.ParquetWriteAbstract;
+
 public class ParquetWriteNest extends ParquetWriteAbstract<PojoRoot> {
 
 	private final ThreadLocalRandom r = ThreadLocalRandom.current();

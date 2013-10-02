@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.sakaguchi3.parquet;
+package com.github.sakaguchi3.parquet.api;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -37,6 +37,7 @@ import org.apache.parquet.hadoop.ParquetFileWriter.Mode;
 import org.apache.parquet.hadoop.ParquetWriter;
 import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
+import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.apache.parquet.io.InputFile;
 import org.apache.parquet.io.OutputFile;
 import org.apache.parquet.schema.MessageType;
@@ -44,19 +45,20 @@ import org.apache.parquet.schema.MessageType;
 public class ParquetWriteAbstract<T> extends GenericsTypeAbstract<T> {
 
 	protected static final Logger log = LogManager.getLogger();
-	protected static final Configuration conf = new Configuration();
+
+	protected final Configuration conf = new Configuration();
+	protected final CompressionCodecName compress = CompressionCodecName.GZIP;
 
 	protected final MessageType messageType;
 	protected final Schema schema;
 
-	static {
-		conf.setBoolean(AvroReadSupport.AVRO_COMPATIBILITY, false);
-		AvroReadSupport.setAvroDataSupplier(conf, ReflectDataSupplier.class);
-	}
-
 	public ParquetWriteAbstract() {
 		schema = ReflectData.get().getSchema(getType());
 		messageType = new AvroSchemaConverter().convert(schema);
+
+		conf.setBoolean(AvroReadSupport.AVRO_COMPATIBILITY, false);
+		AvroReadSupport.setAvroDataSupplier(conf, ReflectDataSupplier.class);
+
 	}
 
 	public void write(OutputFile file, List<T> records) throws IOException {
@@ -64,7 +66,7 @@ public class ParquetWriteAbstract<T> extends GenericsTypeAbstract<T> {
 				.withConf(conf) //
 				.withSchema(schema) //
 				.withDataModel(ReflectData.get()) //
-				.withCompressionCodec(CompressionCodecName.GZIP) //
+				.withCompressionCodec(compress) //
 				.withWriteMode(Mode.OVERWRITE) //
 				.build();) {
 
@@ -125,12 +127,24 @@ public class ParquetWriteAbstract<T> extends GenericsTypeAbstract<T> {
 
 	}
 
-	public Path toHadoopPath(java.nio.file.Path javaPath) {
+	protected Path toHadoopPath(java.nio.file.Path javaPath) {
 		return new Path(javaPath.toUri());
 	}
 
-	public java.nio.file.Path toJavaPath(Path hadoopPath) {
+	protected java.nio.file.Path toJavaPath(Path hadoopPath) {
 		return Paths.get(hadoopPath.toUri());
+	}
+
+	protected HadoopInputFile toHIFile(java.nio.file.Path javaPath) throws IOException {
+		var hadoopPath = toHadoopPath(javaPath);
+		var hadoopInputFile = HadoopInputFile.fromPath(hadoopPath, conf);
+		return hadoopInputFile;
+	}
+
+	protected HadoopOutputFile toHOFile(java.nio.file.Path javaPath) throws IOException {
+		var hadoopPath = toHadoopPath(javaPath);
+		var hadoopOutputPath = HadoopOutputFile.fromPath(hadoopPath, conf);
+		return hadoopOutputPath;
 	}
 
 	protected static void d() {

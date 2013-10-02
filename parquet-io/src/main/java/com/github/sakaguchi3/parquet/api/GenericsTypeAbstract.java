@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.sakaguchi3.parquet;
+package com.github.sakaguchi3.parquet.api;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
