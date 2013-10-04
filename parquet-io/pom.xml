@@ -63,20 +63,78 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.12.3</version>
 		</dependency>
-		
+
 		<!-- parquet -->
 		<dependency>
 			<groupId>org.apache.parquet</groupId>
 			<artifactId>parquet-avro</artifactId>
 			<version>1.12.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId> org.apache.commons </groupId>
+					<artifactId> commons-compress </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> org.slf4j </groupId>
+					<artifactId> slf4j-api </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> com.fasterxml.jackson.core </groupId>
+					<artifactId> jackson-core
+					</artifactId>
+				</exclusion> 
+			</exclusions> 
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
 			<version>3.3.0</version>
-		</dependency>
-
-
+			<exclusions>
+				<exclusion>
+					<groupId> org.apache.commons </groupId>
+					<artifactId> commons-lang3
+					</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> org.apache.commons </groupId>
+					<artifactId> commons-text
+					</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> com.fasterxml.jackson.core </groupId>
+					<artifactId> jackson-databind </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> com.nimbusds </groupId>
+					<artifactId> nimbus-jose-jwt </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> com.fasterxml.jackson.core </groupId>
+					<artifactId> jackson-annotations </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> commons-logging </groupId>
+					<artifactId> commons-logging	</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> commons-codec </groupId>
+					<artifactId> commons-codec </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> org.slf4j </groupId>
+					<artifactId> slf4j-api </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> org.apache.avro </groupId>
+					<artifactId> avro </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> com.fasterxml.jackson.core </groupId>
+					<artifactId> jackson-core </artifactId>
+				</exclusion>
+			</exclusions> 
+		</dependency> 
 
 	</dependencies>
 
@@ -117,6 +175,45 @@
 						<exclude>*.dat</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<!-- check dpendency -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M2</version>
+				<configuration>
+					<rules>
+						<dependencyConvergence />
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>enforce</id>
+						<configuration>
+							<rules>
+								<dependencyConvergence />
+							</rules>
+						</configuration>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- src -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
