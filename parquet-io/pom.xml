@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>parquet-io</name>
-	<url>http://maven.apache.org</url>
+	<url> https://github.com/sakaguchi3/parquet-io </url>
 
 	<!-- java version -->
 	<properties>
@@ -18,14 +18,9 @@
 		<java.version>11</java.version>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
-
-
-		<beam.version>2.22.0</beam.version>
-
-		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-exec-plugin.version>1.6.0</maven-exec-plugin.version>
-		<slf4j.version>1.7.25</slf4j.version>
-		<hadoop-client.version>3.2.1</hadoop-client.version>
+		
+		<slf4j.version>1.7.30</slf4j.version>
+		<commons-compress.version>1.20</commons-compress.version>
 	</properties>
 
 	<dependencies>
@@ -80,11 +75,22 @@
 				</exclusion>
 				<exclusion>
 					<groupId> com.fasterxml.jackson.core </groupId>
-					<artifactId> jackson-core
-					</artifactId>
-				</exclusion> 
-			</exclusions> 
+					<artifactId> jackson-core </artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>${commons-compress.version}</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
@@ -93,13 +99,15 @@
 			<exclusions>
 				<exclusion>
 					<groupId> org.apache.commons </groupId>
-					<artifactId> commons-lang3
-					</artifactId>
+					<artifactId> commons-compress </artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId> org.apache.commons </groupId>
-					<artifactId> commons-text
-					</artifactId>
+					<artifactId> commons-lang3 </artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId> org.apache.commons </groupId>
+					<artifactId> commons-text </artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId> com.fasterxml.jackson.core </groupId>
@@ -133,7 +141,7 @@
 					<groupId> com.fasterxml.jackson.core </groupId>
 					<artifactId> jackson-core </artifactId>
 				</exclusion>
-			</exclusions> 
+			</exclusions>
 		</dependency> 
 
 	</dependencies>

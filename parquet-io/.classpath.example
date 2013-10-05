@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/config/eclipse"/>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -16,13 +16,15 @@
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
+			<attribute name="add-reads" value="com.github.sakaguchi3=java.rmi:com.github.sakaguchi3=jdk.management.jfr:com.github.sakaguchi3=jdk.jdi:com.github.sakaguchi3=jdk.charsets:com.github.sakaguchi3=jdk.pack:com.github.sakaguchi3=java.xml:com.github.sakaguchi3=jdk.xml.dom:com.github.sakaguchi3=java.datatransfer:com.github.sakaguchi3=jdk.rmic:com.github.sakaguchi3=jdk.jstatd:com.github.sakaguchi3=jdk.httpserver:com.github.sakaguchi3=jdk.jcmd:com.github.sakaguchi3=java.desktop:com.github.sakaguchi3=java.se:com.github.sakaguchi3=java.security.sasl:com.github.sakaguchi3=jdk.zipfs:com.github.sakaguchi3=jdk.crypto.ec:com.github.sakaguchi3=jdk.javadoc:com.github.sakaguchi3=jdk.management.agent:com.github.sakaguchi3=jdk.jshell:com.github.sakaguchi3=jdk.editpad:com.github.sakaguchi3=java.sql.rowset:com.github.sakaguchi3=jdk.jsobject:com.github.sakaguchi3=jdk.sctp:com.github.sakaguchi3=java.smartcardio:com.github.sakaguchi3=jdk.jlink:com.github.sakaguchi3=jdk.unsupported:com.github.sakaguchi3=jdk.scripting.nashorn:com.github.sakaguchi3=jdk.scripting.nashorn.shell:com.github.sakaguchi3=java.security.jgss:com.github.sakaguchi3=java.compiler:com.github.sakaguchi3=jdk.dynalink:com.github.sakaguchi3=jdk.unsupported.desktop:com.github.sakaguchi3=jdk.accessibility:com.github.sakaguchi3=jdk.security.jgss:com.github.sakaguchi3=java.sql:com.github.sakaguchi3=org.openjsse:com.github.sakaguchi3=jdk.hotspot.agent:com.github.sakaguchi3=java.logging:com.github.sakaguchi3=java.transaction.xa:com.github.sakaguchi3=java.xml.crypto:com.github.sakaguchi3=jdk.jfr:com.github.sakaguchi3=jdk.internal.vm.ci:com.github.sakaguchi3=jdk.crypto.cryptoki:com.github.sakaguchi3=jdk.net:com.github.sakaguchi3=java.naming:com.github.sakaguchi3=jdk.internal.ed:com.github.sakaguchi3=java.prefs:com.github.sakaguchi3=java.net.http:com.github.sakaguchi3=jdk.compiler:com.github.sakaguchi3=jdk.internal.opt:com.github.sakaguchi3=jdk.naming.rmi:com.github.sakaguchi3=jdk.jconsole:com.github.sakaguchi3=jdk.attach:com.github.sakaguchi3=jdk.crypto.mscapi:com.github.sakaguchi3=jdk.internal.le:com.github.sakaguchi3=java.management:com.github.sakaguchi3=jdk.jdwp.agent:com.github.sakaguchi3=jdk.internal.jvmstat:com.github.sakaguchi3=java.instrument:com.github.sakaguchi3=jdk.internal.vm.compiler:com.github.sakaguchi3=jdk.internal.vm.compiler.management:com.github.sakaguchi3=jdk.management:com.github.sakaguchi3=jdk.security.auth:com.github.sakaguchi3=java.scripting:com.github.sakaguchi3=jdk.jdeps:com.github.sakaguchi3=jdk.aot:com.github.sakaguchi3=jdk.jartool:com.github.sakaguchi3=java.management.rmi:com.github.sakaguchi3=jdk.naming.dns:com.github.sakaguchi3=jdk.localedata"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>

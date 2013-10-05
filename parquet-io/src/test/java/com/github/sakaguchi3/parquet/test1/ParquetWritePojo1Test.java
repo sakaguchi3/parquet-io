@@ -77,10 +77,10 @@ public class ParquetWritePojo1Test {
 		var filePath = new Path(fileStr);
 
 		var dataList = List.of( //
-				new Pojo1("bx", 0), //
+				new Pojo1("xbx", 0), //
 				Pojo1.builder().name("z").age(8).build(), //
-				new Pojo1("z", 20), //
-				new Pojo1("llllllc", 9990));
+				new Pojo1("jz", 20), //
+				new Pojo1("qqqq", 9990));
 
 		try {
 			var fileHadoopFile = HadoopOutputFile.fromPath(filePath, conf);
