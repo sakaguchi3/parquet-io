@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.sakaguchi3.parquet.api;
+package com.github.sakaguchi3.parquet.priv;
 
 import java.io.IOException;
 import java.io.StringReader;

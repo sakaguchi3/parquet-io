@@ -15,6 +15,8 @@
  */
 package com.github.sakaguchi3.parquet.test3;
 
+import static com.github.sakaguchi3.parquet.priv.UtilsParquetIO.toHOFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -22,17 +24,17 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.stream.Collectors;
 
-import org.apache.hadoop.fs.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.github.sakaguchi3.parquet.api.ParquetWriterCsvAbstract;
+import com.github.sakaguchi3.parquet.api.Csv2ParquetNormal;
+import com.github.sakaguchi3.parquet.priv.UtilsParquetIO;
 
 import lombok.Builder;
 import lombok.Cleanup;
 import lombok.Getter;
 
-public class Csv2Parquet extends ParquetWriterCsvAbstract<SampleEntity> {
+public class Csv2ParquetTest extends Csv2ParquetNormal<SampleEntity> {
 
 	private static Logger log = LogManager.getLogger();
 
@@ -71,7 +73,9 @@ public class Csv2Parquet extends ParquetWriterCsvAbstract<SampleEntity> {
 			var readMergeRecords = new ArrayList<SampleEntity>(20_000);
 			long readSize = 0;
 
-			// read data from file 
+			var c = getType();
+
+			// read data from file
 			for (var readFilePath : readFilePaths) {
 
 				// write condition
@@ -87,7 +91,7 @@ public class Csv2Parquet extends ParquetWriterCsvAbstract<SampleEntity> {
 				}
 
 				readSize += Files.size(readFilePath);
-				var readRecordLst = readCsv(readFilePath);
+				var readRecordLst = UtilsParquetIO.readCsv(c, readFilePath);
 				readMergeRecords.addAll(readRecordLst);
 			}
 
@@ -161,10 +165,6 @@ public class Csv2Parquet extends ParquetWriterCsvAbstract<SampleEntity> {
 		final java.nio.file.Path outDir;
 		final String outFilePrefix;
 		final String outFileSuffix;
-	}
-
-	void jj() {
-		Path hp;
 	}
 
 }

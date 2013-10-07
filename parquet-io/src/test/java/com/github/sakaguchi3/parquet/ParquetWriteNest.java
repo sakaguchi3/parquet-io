@@ -22,9 +22,9 @@ import java.util.stream.IntStream;
 
 import org.apache.avro.Schema;
 
-import com.github.sakaguchi3.parquet.api.ParquetWriteAbstract;
+import com.github.sakaguchi3.parquet.api.ParquetIOAbstract;
 
-public class ParquetWriteNest extends ParquetWriteAbstract<PojoRoot> {
+public class ParquetWriteNest extends ParquetIOAbstract<PojoRoot> {
 
 	private final ThreadLocalRandom r = ThreadLocalRandom.current();
 

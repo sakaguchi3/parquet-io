@@ -16,48 +16,38 @@
 package com.github.sakaguchi3.parquet.api;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.avro.Schema;
 import org.apache.avro.reflect.ReflectData;
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.parquet.avro.AvroParquetReader;
 import org.apache.parquet.avro.AvroParquetWriter;
-import org.apache.parquet.avro.AvroReadSupport;
-import org.apache.parquet.avro.AvroSchemaConverter;
-import org.apache.parquet.avro.ReflectDataSupplier;
 import org.apache.parquet.column.ParquetProperties;
 import org.apache.parquet.hadoop.ParquetFileWriter;
 import org.apache.parquet.hadoop.ParquetFileWriter.Mode;
 import org.apache.parquet.hadoop.ParquetWriter;
-import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
-import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.apache.parquet.io.InputFile;
 import org.apache.parquet.io.OutputFile;
-import org.apache.parquet.schema.MessageType;
 
-public class ParquetWriteAbstract<T> extends GenericsTypeAbstract<T> {
+public abstract class ParquetIOAbstract<T> extends ParquetWriterBaseAbstract<T> {
 
-	protected static final Logger log = LogManager.getLogger();
+	public List<T> read(InputFile file) throws IOException {
 
-	protected final Configuration conf = new Configuration();
-	protected final CompressionCodecName compress = CompressionCodecName.GZIP;
+		var ret = new ArrayList<T>(100_000);
 
-	protected final MessageType messageType;
-	protected final Schema schema;
+		try (var reader = AvroParquetReader.<T>builder(file) //
+				.withConf(conf) //
+				.build();) {
 
-	public ParquetWriteAbstract() {
-		schema = ReflectData.get().getSchema(getType());
-		messageType = new AvroSchemaConverter().convert(schema);
+			T e;
+			while ((e = reader.read()) != null) {
+				ret.add(e);
+			}
 
-		conf.setBoolean(AvroReadSupport.AVRO_COMPATIBILITY, false);
-		AvroReadSupport.setAvroDataSupplier(conf, ReflectDataSupplier.class);
+			return ret;
+		}
 
 	}
 
@@ -107,44 +97,6 @@ public class ParquetWriteAbstract<T> extends GenericsTypeAbstract<T> {
 		writer.end(metaData.getKeyValueMetaData());
 
 		d();
-	}
-
-	public List<T> read(InputFile file) throws IOException {
-
-		var ret = new ArrayList<T>(1000);
-
-		try (var reader = AvroParquetReader.<T>builder(file) //
-				.withConf(conf) //
-				.build();) {
-
-			T e;
-			while ((e = reader.read()) != null) {
-				ret.add(e);
-			}
-
-			return ret;
-		}
-
-	}
-
-	protected Path toHadoopPath(java.nio.file.Path javaPath) {
-		return new Path(javaPath.toUri());
-	}
-
-	protected java.nio.file.Path toJavaPath(Path hadoopPath) {
-		return Paths.get(hadoopPath.toUri());
-	}
-
-	protected HadoopInputFile toHIFile(java.nio.file.Path javaPath) throws IOException {
-		var hadoopPath = toHadoopPath(javaPath);
-		var hadoopInputFile = HadoopInputFile.fromPath(hadoopPath, conf);
-		return hadoopInputFile;
-	}
-
-	protected HadoopOutputFile toHOFile(java.nio.file.Path javaPath) throws IOException {
-		var hadoopPath = toHadoopPath(javaPath);
-		var hadoopOutputPath = HadoopOutputFile.fromPath(hadoopPath, conf);
-		return hadoopOutputPath;
 	}
 
 	protected static void d() {

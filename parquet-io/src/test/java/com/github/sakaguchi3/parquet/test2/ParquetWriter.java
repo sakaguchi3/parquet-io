@@ -17,9 +17,9 @@ package com.github.sakaguchi3.parquet.test2;
 
 import org.apache.avro.Schema;
 
-import com.github.sakaguchi3.parquet.api.ParquetWriteAbstract;
+import com.github.sakaguchi3.parquet.api.ParquetIOAbstract;
 
-public class ParquetWriter extends ParquetWriteAbstract<Piyo> {
+public class ParquetWriter extends ParquetIOAbstract<Piyo> {
 
 	public Schema getSchema() {
 		return schema;
