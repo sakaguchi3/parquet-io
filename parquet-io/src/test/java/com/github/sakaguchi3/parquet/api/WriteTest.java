@@ -22,6 +22,8 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.avro.LogicalTypes;
+import org.apache.avro.Schema;
 import org.junit.jupiter.api.Test;
 
 import com.github.sakaguchi3.parquet.priv.UtilsParquetIO;
@@ -36,8 +38,10 @@ public class WriteTest {
 	@Test
 	void ngTest() {
 		try {
+			LogicalTypes .timestampMillis().addToSchema(Schema.create(Schema.Type.LONG));
 			doTestNgVersion();
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail(e);
 		}
 
