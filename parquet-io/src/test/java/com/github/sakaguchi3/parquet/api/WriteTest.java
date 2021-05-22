@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,44 @@ public class WriteTest {
 
 //	@Test void a() { d(); }
 
+	/**
+	 * TODO:FIX. throws exception.
+	 */
 	@Test
+	void ngTest() {
+		try {
+			doTestNgVersion();
+		} catch (Exception e) {
+			fail(e);
+		}
+
+		d();
+	}
+
+	private void doTestNgVersion() throws IOException {
+		var filePathStr = System.getenv("write_path");
+		Path fileJPath = Path.of(filePathStr);
+
+		var ds = createTestDataNGVersion();
+		var fileHop = UtilsParquetIO.toHOFile(fileJPath);
+
+		var writer = new WriterTime();
+		writer.write(fileHop, ds);
+	}
+
+	private List<PojoTime> createTestDataNGVersion() {
+		var ldt = LocalDateTime.now();
+		return List.of(PojoTime.of(1, "1s", ldt) //
+				, PojoTime.of(2, "2s", ldt) //
+				, PojoTime.of(3, "x", ldt) //
+				, PojoTime.of(4, "x", ldt) //
+				, PojoTime.of(5, "x", ldt) //
+				, PojoTime.of(6, "x", ldt) //
+				, PojoTime.of(7, "x", ldt) //
+				, PojoTime.of(99, "x", ldt));
+	}
+
+//	@Test
 	void okTest() {
 		try {
 			doTestOkVersion();

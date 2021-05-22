@@ -25,7 +25,16 @@ public class PojoTime {
 
 	public LocalDateTime ldt;
 
-//	void a() { debug(); }
+	public PojoTime(int i, String s, LocalDateTime ldt) {
+		this.i = i;
+		this.s = s;
+		this.ldt = ldt;
+	}
+
+	// void a() { debug(); }
+	public static PojoTime of(int i, String s, LocalDateTime ldt) {
+		return new PojoTime(i, s, ldt);
+	}
 
 	private void debug() {
 	}
