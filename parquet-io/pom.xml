@@ -6,7 +6,7 @@
 	<!-- build version -->
 	<groupId>com.github.sakaguchi3.parquet</groupId>
 	<artifactId>parquet-io</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>parquet-io</name>
@@ -44,8 +44,8 @@
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.17.0</version>
+			<artifactId>log4j-api</artifactId>
+			<version>2.17.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -66,16 +66,16 @@
 			<version>1.12.0</version>
 			<exclusions>
 				<exclusion>
-					<groupId> org.apache.commons </groupId>
-					<artifactId> commons-compress </artifactId>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId> org.slf4j </groupId>
-					<artifactId> slf4j-api </artifactId>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId> com.fasterxml.jackson.core </groupId>
-					<artifactId> jackson-core </artifactId>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
